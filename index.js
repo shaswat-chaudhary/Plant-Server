@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 const twilio = require('twilio');
+const helmet = require('helmet');
+
+app.use(helmet());
 
 require('dotenv').config();
 
@@ -21,7 +24,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const morgan = require('morgan');
-
 app.use(morgan('dev'));
 
 // Twilio configuration
