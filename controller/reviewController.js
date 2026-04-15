@@ -43,7 +43,6 @@ const getProductReviews = async (req, res) => {
 }
 
 const createProductReview = async (req, res) => {
-
     try {
         const { rating, comment, title, images } = req.body;
         const { productId } = req.params;
@@ -74,15 +73,26 @@ const updateProductReview = async (req, res) => {
     const { rating, comment, title, images } = req.body;
 
     try {
-
         const review = await Review.findById(reviewId);
+
         if (!review) {
             return res.status(404).json({ message: `Review not Found with id ${reviewId}` });
         }
-        if (review.user.toString() !== req.userId) {
-            return res.status(403).json({ message: 'You are not authorized to update this review' });
-        }
+        // if (review.user.toString() !== req.userId) {
+        //     return res.status(403).json({ message: 'You are not authorized to update this review' });
+        // }
         review.rating = rating;
+        review.comment = comment;
+        review.title = title;
+        review.images = images;
+
+        const update = await review.save();
+
+        return res.status(200).json({
+            message: "Review updated successfully",
+            review: update
+        })
+
 
     } catch (error) {
         res.status(500).json({ message: 'server error' })
