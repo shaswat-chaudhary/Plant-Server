@@ -16,7 +16,7 @@ require('dotenv').config();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://plant-server-gyl8.onrender.com/",
     credentials: true,
   })
 );
