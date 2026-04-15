@@ -16,7 +16,7 @@ require('dotenv').config();
 
 app.use(
   cors({
-    origin: "https://plant-server-gyl8.onrender.com/",
+    origin: "https://nursery-plant-admin-dashboard.vercel.app",
     credentials: true,
   })
 );
