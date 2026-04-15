@@ -14,12 +14,30 @@ require('dotenv').config();
 
 // app.use(cors());
 
-app.use(
-  cors({
-    origin: "https://nursery-plant-admin-dashboard.vercel.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://nursery-plant-admin-dashboard.vercel.app",
+//     credentials: true,
+//   })
+// );
+
+app.set("trust proxy", 1);
+
+const allowedOrigins = [
+  "http://localhost:5173/",
+  "https://nursery-plant-admin-dashboard.vercel.app/",
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Cors not allowed"));
+    }
+  },
+  credentials: true,
+}))
 
 
 const PORT = process.env.PORT || 5000;
